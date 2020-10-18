@@ -1,5 +1,5 @@
 syntax = "proto3";
-package turkionary_proto;
+package search;
 option go_package = "github.com/vancelongwill/turkionary_proto/search";
 
 enum LangCode {
