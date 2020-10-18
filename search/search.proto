@@ -1,0 +1,48 @@
+syntax = "proto3";
+package turkionary_proto;
+
+enum LangCode {
+  EN = 0;
+  TR = 1;
+}
+
+enum WordType {
+  NOUN = 0;
+  VERB = 1;
+  ADJECTIVE = 2;
+}
+
+message SearchRequest {
+  string query = 1;
+  LangCode source = 2;
+  LangCode target = 3;
+}
+
+message Definition {
+  LangCode lang = 1;
+  string text = 2;
+  string context = 3;
+}
+
+message Phrase {
+  LangCode lang = 1;
+  string text = 2;
+}
+
+message Example {
+  repeated Phrase texts = 1;
+}
+
+message SearchResult {
+  string term = 1;
+  repeated string definitions = 2;
+  repeated Phrase sayings = 3;
+  repeated Example examples = 4;
+}
+
+message SearchResponse {
+  string query = 1;
+  LangCode source = 2;
+  LangCode target = 3;
+  repeated SearchResult results = 4;
+}
