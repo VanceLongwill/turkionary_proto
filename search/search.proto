@@ -20,18 +20,21 @@ message SearchRequest {
 }
 
 message Definition {
-  LangCode lang = 1;
-  string text = 2;
-  string context = 3;
+  string id = 1;
+  LangCode lang = 2;
+  string text = 3;
+  string context = 4;
 }
 
 message Phrase {
-  LangCode lang = 1;
-  string text = 2;
+  string id = 1;
+  LangCode lang = 2;
+  string text = 3;
 }
 
 message Example {
-  repeated Phrase texts = 1;
+  string id = 1;
+  repeated Phrase texts = 2;
 }
 
 message SearchResult {
@@ -48,6 +51,20 @@ message SearchResponse {
   repeated SearchResult results = 4;
 }
 
+message ID {
+  string id = 1;
+}
+
 service SearchService {
   rpc Query(SearchRequest) returns (SearchResponse) {}
+}
+
+service PhraseService {
+  rpc Find(ID) returns (Phrase) {}
+  rpc CreateOrUpdate(Phrase) returns (Phrase) {}
+}
+
+service ExampleService {
+  rpc Find(ID) returns (Example) {}
+  rpc CreateOrUpdate(Example) returns (Example) {}
 }
