@@ -51,7 +51,11 @@ message SearchResponse {
   repeated SearchResult results = 4;
 }
 
-message ID {
+message ExampleQuery {
+  string id = 1;
+}
+
+message PhraseQuery {
   string id = 1;
 }
 
@@ -60,11 +64,11 @@ service SearchService {
 }
 
 service PhraseService {
-  rpc Find(ID) returns (Phrase) {}
+  rpc Query(PhraseQuery) returns (Phrase) {}
   rpc CreateOrUpdate(Phrase) returns (Phrase) {}
 }
 
 service ExampleService {
-  rpc Find(ID) returns (Example) {}
+  rpc Query(ExampleQuery) returns (Example) {}
   rpc CreateOrUpdate(Example) returns (Example) {}
 }

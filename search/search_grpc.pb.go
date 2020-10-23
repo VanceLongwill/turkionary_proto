@@ -100,7 +100,7 @@ var _SearchService_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PhraseServiceClient interface {
-	Find(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Phrase, error)
+	Query(ctx context.Context, in *PhraseQuery, opts ...grpc.CallOption) (*Phrase, error)
 	CreateOrUpdate(ctx context.Context, in *Phrase, opts ...grpc.CallOption) (*Phrase, error)
 }
 
@@ -112,9 +112,9 @@ func NewPhraseServiceClient(cc grpc.ClientConnInterface) PhraseServiceClient {
 	return &phraseServiceClient{cc}
 }
 
-func (c *phraseServiceClient) Find(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Phrase, error) {
+func (c *phraseServiceClient) Query(ctx context.Context, in *PhraseQuery, opts ...grpc.CallOption) (*Phrase, error) {
 	out := new(Phrase)
-	err := c.cc.Invoke(ctx, "/search.PhraseService/Find", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/search.PhraseService/Query", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (c *phraseServiceClient) CreateOrUpdate(ctx context.Context, in *Phrase, op
 // All implementations must embed UnimplementedPhraseServiceServer
 // for forward compatibility
 type PhraseServiceServer interface {
-	Find(context.Context, *ID) (*Phrase, error)
+	Query(context.Context, *PhraseQuery) (*Phrase, error)
 	CreateOrUpdate(context.Context, *Phrase) (*Phrase, error)
 	mustEmbedUnimplementedPhraseServiceServer()
 }
@@ -143,8 +143,8 @@ type PhraseServiceServer interface {
 type UnimplementedPhraseServiceServer struct {
 }
 
-func (UnimplementedPhraseServiceServer) Find(context.Context, *ID) (*Phrase, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Find not implemented")
+func (UnimplementedPhraseServiceServer) Query(context.Context, *PhraseQuery) (*Phrase, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
 }
 func (UnimplementedPhraseServiceServer) CreateOrUpdate(context.Context, *Phrase) (*Phrase, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdate not implemented")
@@ -162,20 +162,20 @@ func RegisterPhraseServiceServer(s *grpc.Server, srv PhraseServiceServer) {
 	s.RegisterService(&_PhraseService_serviceDesc, srv)
 }
 
-func _PhraseService_Find_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+func _PhraseService_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PhraseQuery)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PhraseServiceServer).Find(ctx, in)
+		return srv.(PhraseServiceServer).Query(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/search.PhraseService/Find",
+		FullMethod: "/search.PhraseService/Query",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PhraseServiceServer).Find(ctx, req.(*ID))
+		return srv.(PhraseServiceServer).Query(ctx, req.(*PhraseQuery))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -203,8 +203,8 @@ var _PhraseService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*PhraseServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Find",
-			Handler:    _PhraseService_Find_Handler,
+			MethodName: "Query",
+			Handler:    _PhraseService_Query_Handler,
 		},
 		{
 			MethodName: "CreateOrUpdate",
@@ -219,7 +219,7 @@ var _PhraseService_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ExampleServiceClient interface {
-	Find(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Example, error)
+	Query(ctx context.Context, in *ExampleQuery, opts ...grpc.CallOption) (*Example, error)
 	CreateOrUpdate(ctx context.Context, in *Example, opts ...grpc.CallOption) (*Example, error)
 }
 
@@ -231,9 +231,9 @@ func NewExampleServiceClient(cc grpc.ClientConnInterface) ExampleServiceClient {
 	return &exampleServiceClient{cc}
 }
 
-func (c *exampleServiceClient) Find(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Example, error) {
+func (c *exampleServiceClient) Query(ctx context.Context, in *ExampleQuery, opts ...grpc.CallOption) (*Example, error) {
 	out := new(Example)
-	err := c.cc.Invoke(ctx, "/search.ExampleService/Find", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/search.ExampleService/Query", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -253,7 +253,7 @@ func (c *exampleServiceClient) CreateOrUpdate(ctx context.Context, in *Example, 
 // All implementations must embed UnimplementedExampleServiceServer
 // for forward compatibility
 type ExampleServiceServer interface {
-	Find(context.Context, *ID) (*Example, error)
+	Query(context.Context, *ExampleQuery) (*Example, error)
 	CreateOrUpdate(context.Context, *Example) (*Example, error)
 	mustEmbedUnimplementedExampleServiceServer()
 }
@@ -262,8 +262,8 @@ type ExampleServiceServer interface {
 type UnimplementedExampleServiceServer struct {
 }
 
-func (UnimplementedExampleServiceServer) Find(context.Context, *ID) (*Example, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Find not implemented")
+func (UnimplementedExampleServiceServer) Query(context.Context, *ExampleQuery) (*Example, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
 }
 func (UnimplementedExampleServiceServer) CreateOrUpdate(context.Context, *Example) (*Example, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdate not implemented")
@@ -281,20 +281,20 @@ func RegisterExampleServiceServer(s *grpc.Server, srv ExampleServiceServer) {
 	s.RegisterService(&_ExampleService_serviceDesc, srv)
 }
 
-func _ExampleService_Find_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+func _ExampleService_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExampleQuery)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ExampleServiceServer).Find(ctx, in)
+		return srv.(ExampleServiceServer).Query(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/search.ExampleService/Find",
+		FullMethod: "/search.ExampleService/Query",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExampleServiceServer).Find(ctx, req.(*ID))
+		return srv.(ExampleServiceServer).Query(ctx, req.(*ExampleQuery))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -322,8 +322,8 @@ var _ExampleService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ExampleServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Find",
-			Handler:    _ExampleService_Find_Handler,
+			MethodName: "Query",
+			Handler:    _ExampleService_Query_Handler,
 		},
 		{
 			MethodName: "CreateOrUpdate",
